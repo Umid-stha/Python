@@ -1,0 +1,3 @@
+Umid,password,999500
+Ram,ram,200
+Shyam,shyam,500
