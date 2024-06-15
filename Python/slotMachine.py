@@ -10,19 +10,22 @@ COLS=3
 symbolCount={
     "A": 2,
     "B": 4,
-    "C": 6,
-    "D": 8
+    "C": 5,
+    "D": 6
 }
 
 symbolValue={
     "A": 5,
-    "B": 3,
+    "B": 2.5,
     "C": 2,
-    "D": 1.2
+    "D": 1.5
 }
+
+#Slot machine mechanisims
 
 def checkWinnings(columns, lines, bet, value):
     Winnings = 0
+    winningLines = []
     for line in range(lines):
         symbol=columns[0][line]
         for column in columns:
@@ -31,7 +34,8 @@ def checkWinnings(columns, lines, bet, value):
                 break
         else:
             Winnings += value[symbol] * bet
-    return Winnings
+            winningLines.append(line+1)
+    return Winnings, winningLines
 
 def getSlotMachineSpin(rows, cols, symbols):
     allSymbols = []
@@ -57,7 +61,7 @@ def printSlotMacine(columns):
             else :
                 print(column[row])
         
-
+#User inputs
 
 def deposit():
     while True:
@@ -98,8 +102,9 @@ def getBet():
             print("Please enter a number")
     return bet
 
-def main():
-    balance=deposit()
+#main game
+
+def game(balance):
     lines=getNumOfLines()
     while True:
         bet=getBet()
@@ -112,8 +117,19 @@ def main():
     print("here is the slot machine: ")
     slots=getSlotMachineSpin(ROWS, COLS, symbolCount)
     printSlotMacine(slots)
-    winning=checkWinnings(slots, lines, bet, symbolValue)
+    winning, winningLines=checkWinnings(slots, lines, bet, symbolValue)
     print(f"you have won ${winning} from this roll")
+    print(f"you won on lines: ", *winningLines)
+    return winning-totalBet
 
-
+def main():
+    balance=deposit()
+    while True:
+        print(f"Your current balance is {balance}")
+        spin=input("Press Enter to play(q to quit)")
+        if spin=="q":
+            break
+        else:
+            balance += game(balance)
+    print("Your current balance is ${balance}")
 main()
