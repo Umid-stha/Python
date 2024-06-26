@@ -1,4 +1,4 @@
-from curses.ascii import isdigit
+'''from curses.ascii import isdigit
 import random
 
 MAX_BET=100
@@ -17,13 +17,15 @@ def createDeck(suits,values):
     for suit in suits:
         for value in values:
             deck.append({"value":value, "suit":suit})
-    return deck
-
-def shuffleDeck(deck):
     random.shuffle(deck)
     return deck
 
-'''def deposit():
+def cardDis(deck):
+    CurrentDeck=deck[:]
+
+
+
+def deposit():
     while True:
         amount=input("Enter the amount you want to deposit: $")
         if amount.isdigit():
@@ -47,13 +49,13 @@ def shuffleDeck(deck):
                 print(f"Please enter a valid bet from {MIN_BET} to {MAX_BET}")
         else:
             print("Please enter a number")
-    return bet'''
+    return bet
 
 def main():
-    '''balance=deposit()
-    bet=getBet()'''
+    balance=deposit()
+    bet=getBet()
     deck=createDeck(cardSuits, Values)
     shuffledDeck=shuffleDeck(deck)
     #print(deck)
     print(shuffledDeck)
-main()
+main()'''
